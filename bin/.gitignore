@@ -1,0 +1,5 @@
+deps/
+.classpath
+.project
+.settings/
+/com/

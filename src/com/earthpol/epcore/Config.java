@@ -9,9 +9,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Config {
 	
+	public static Main plugin = Main.getPlugin(Main.class);
 	private static File file;
 	private static FileConfiguration configFile;
-	
 	
 	//Finds or generates the custom configuration file.
 	public static void setup() {
@@ -24,7 +24,7 @@ public class Config {
 				file.createNewFile();
 			} catch (IOException e){
 				//Error, let user know.
-				Main.log.info("Couldn't create a configuration file.");
+				plugin.log.info("Couldn't create a configuration file.");
 			}
 		}
 		
@@ -44,7 +44,7 @@ public class Config {
 			configFile.save(file);
 		} catch (IOException e) {
 			//Error, let user know.
-			Main.log.info("Couldn't save the configuration file.");
+			plugin.log.info("Couldn't save the configuration file.");
 		}
 	}
 	
