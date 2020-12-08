@@ -1,7 +1,7 @@
 name: EP-Core
 main: com.earthpol.epcore.Main
 version: "1.0"
-authors: [0xBit]
+authors: ["0xBit"]
 api: ["1.16.4"]
 api-version: 1.16
 depend: [ Towny ]

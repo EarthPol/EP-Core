@@ -29,6 +29,7 @@ public class SQLSetGet {
 		return false;
 	}
 	
+	
 	public static void createPlayer(final UUID uuid, Player player) {
 		try {
 			PreparedStatement statement = plugin.getConnection()

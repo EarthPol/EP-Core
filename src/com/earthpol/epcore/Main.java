@@ -1,8 +1,8 @@
 package com.earthpol.epcore;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+//import java.sql.DriverManager;
+//import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -13,9 +13,9 @@ public class Main extends JavaPlugin {
 	public static Main instance;
 	public static Logger log = Bukkit.getLogger();
 	private Connection connection;
-	public String host, database, username, password;
-	public int port;
-	public boolean ssl;
+	//public String host, database, username, password;
+	//public int port;
+	//public boolean ssl;
 	
 	@Override
 	public void onEnable() {
@@ -27,9 +27,8 @@ public class Main extends JavaPlugin {
 		log.info("= Website: " + this.getDescription().getWebsite());
 		log.info("= Support: https://discord.gg/DvtZzztAfF");
 		log.info("=========================");
-		log.info("= Registering EventListener");
-		getServer().getPluginManager().registerEvents(new EventListener(), this);
 		
+		/*
 		log.info("= Loading config.yml");
 		getConfig().options().copyDefaults();
 		host = (String) getConfig().get("host");
@@ -39,19 +38,21 @@ public class Main extends JavaPlugin {
 		port = getConfig().getInt("port");
 		ssl = getConfig().getBoolean("ssl");
 		saveDefaultConfig();
-		
+		*/
 		log.info("= Setting up options.yml");
 		Config.setup();
 		Config.getConfig();
 		Config.saveConfig();
-		log.info("= Establishing MySQL Connection");
-		mysqlSetup();
+		//log.info("= Establishing MySQL Connection");
+		//mysqlSetup();
+		log.info("= Registering EventListener");
+		getServer().getPluginManager().registerEvents(new EventListener(), this);
 		log.info("=========================");
 		log.info("= Startup completed.");
 		log.info("=========================");
 	}
 	
-	public void mysqlSetup() {
+	/*public void mysqlSetup() {
 		try {
 			synchronized (this) {
 				if(getConnection() != null && !getConnection().isClosed()) {
@@ -69,7 +70,7 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
 	public Connection getConnection(){
 		return connection;
