@@ -18,10 +18,10 @@ public class SQLSetGet {
 			
 			ResultSet results = statement.executeQuery();
 			if(results.next()) {
-				plugin.log.info("[EP-Core] Player Data Found in MySQL");
+				Main.log.info("[EP-Core] Player Data Found in MySQL");
 				return true;
 			} else {
-				plugin.log.info("[EP-Core] Player Data Not Found in MySQL [!]");
+				Main.log.info("[EP-Core] Player Data Not Found in MySQL [!]");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -44,7 +44,7 @@ public class SQLSetGet {
 				insert.setString(2, player.getName());
 				insert.setInt(3, 0);
 				insert.executeUpdate();
-				plugin.log.info("[EP-Core] Player Data inserted into MySQL");
+				Main.log.info("[EP-Core] Player Data inserted into MySQL");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

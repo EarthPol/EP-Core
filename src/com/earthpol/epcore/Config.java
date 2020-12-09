@@ -24,7 +24,7 @@ public class Config {
 				file.createNewFile();
 			} catch (IOException e){
 				//Error, let user know.
-				plugin.log.info("Couldn't create a configuration file.");
+				Main.log.info("Couldn't create a configuration file.");
 			}
 		}
 		
@@ -44,7 +44,7 @@ public class Config {
 			configFile.save(file);
 		} catch (IOException e) {
 			//Error, let user know.
-			plugin.log.info("Couldn't save the configuration file.");
+			Main.log.info("Couldn't save the configuration file.");
 		}
 	}
 	

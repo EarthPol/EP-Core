@@ -74,19 +74,11 @@ public class EventListener implements Listener{
 		}
     }
 	
-	@SuppressWarnings("null")
 	@EventHandler
 	public void preMobSpawn(PreCreatureSpawnEvent e) {
 		//Get the current Type of the Entity
 		EntityType entity = e.getType();
-		EntityType[] illegals = null;
-		illegals[0] = EntityType.RABBIT;
-		illegals[1] = EntityType.POLAR_BEAR;
-		illegals[2] = EntityType.DONKEY;
-		illegals[3] = EntityType.MULE;
-		illegals[4] = EntityType.BAT;
-		illegals[5] = EntityType.SQUID;
-		if (illegals.toString().contains(entity.toString())) {
+		if (entity == EntityType.RABBIT || entity == EntityType.POLAR_BEAR || entity == EntityType.DONKEY || entity == EntityType.MULE || entity == EntityType.BAT || entity == EntityType.SQUID || entity == EntityType.COD) {
 			e.setCancelled(true);
 		}
 	}
@@ -141,16 +133,16 @@ public class EventListener implements Listener{
 					Town town = WorldCoord.parseWorldCoord(wasHit.getLocation()).getTownBlock().getTown();
 					TownBlockType plotType = WorldCoord.parseWorldCoord(wasHit.getLocation()).getTownBlock().getType();
 					if (!town.hasOutlaw(wasHit.getName()) && plotType != TownBlockType.ARENA) {
-						whoHit.sendMessage(ChatColor.GOLD + "You attempted to hit " + wasHit.getName() + ", but they are not an outlaw of your town.");
-						e.setDamage(0.0D);
-						e.setCancelled(true);
-					} 
-				} catch (NotRegisteredException error) {
-					whoHit.sendMessage(ChatColor.GOLD + "You attempted to hit " + wasHit.getName() + ", but they are not in town.");
-					e.setDamage(0.0D);
-					e.setCancelled(true);
-			      } 
-			 	} 
+			   whoHit.sendMessage(ChatColor.GOLD + "You attempted to hit " + wasHit.getName() + ", but they are not an outlaw of your town.");
+			   e.setDamage(0.0D);
+			   e.setCancelled(true);
+			   } 
+			  } catch (NotRegisteredException error) {
+			  whoHit.sendMessage(ChatColor.GOLD + "You attempted to hit " + wasHit.getName() + ", but they are not in town.");
+			  e.setDamage(0.0D);
+			  e.setCancelled(true);
+			          } 
+			        } 
 	      
 	    } 
 	  }
