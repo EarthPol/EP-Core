@@ -1,6 +1,0 @@
-host: "localhost"
-database: "epcore"
-username: "epcore"
-password: "password"
-ssl: "false"
-port: 3306

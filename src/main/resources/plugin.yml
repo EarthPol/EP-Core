@@ -1,0 +1,20 @@
+name: EPCore
+version: ${project.version}
+main: com.earthpol.epcore.Main
+api-version: 1.16
+authors: [ 0xBit ]
+description: EarthPol Core, responsible for all custom core functionalities on the EarthPol Server.
+website: https://earthpol.github.com
+depend: [ Towny ]
+softdepend: [ TownyChat ]
+commands:
+  map:
+    description: Opens a link to the Dynmap on your web browser.
+  help:
+    description: Opens a link to the guide on your web browser.
+  rules:
+    description: Opens a link to the rules on your web browser.
+  store:
+    description: Opens a link to the Store on your web browser.
+  support:
+    description: Opens a link to the Support on your web browser.
