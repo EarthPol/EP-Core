@@ -58,7 +58,7 @@ public class EventListener implements Listener {
                 Bukkit.broadcastMessage(prefix + "Mob Spawning has been "+ ChatColor.RED + "Disabled");
                 mobSpawning = false;
             }
-        } else { mobSpawning = false; }
+        }
 
     }
 
