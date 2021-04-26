@@ -52,7 +52,7 @@ public class EventListener implements Listener {
         World world = player.getWorld();
         int onlinePlayers = onlinePlayerCount();
 
-        if(onlinePlayers <= 80){
+        if(onlinePlayers >= 80){
             if (mobSpawning == true){
                 world.setGameRule(GameRule.DO_MOB_SPAWNING, false);
                 Bukkit.broadcastMessage(prefix + "Mob Spawning has been "+ ChatColor.RED + "Disabled");
@@ -68,7 +68,7 @@ public class EventListener implements Listener {
         World world = player.getWorld();
         int onlinePlayers = onlinePlayerCount();
 
-        if (onlinePlayers >= 80){
+        if (onlinePlayers <= 80){
             if (mobSpawning == false){
                 world.setGameRule(GameRule.DO_MOB_SPAWNING, true);
                 Bukkit.broadcastMessage(prefix + "Mob Spawning has been "+ ChatColor.GREEN + "Enabled");
