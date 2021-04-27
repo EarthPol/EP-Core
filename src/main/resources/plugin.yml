@@ -18,3 +18,5 @@ commands:
     description: Opens a link to the Store on your web browser.
   support:
     description: Opens a link to the Support on your web browser.
+  mapcolor:
+    description: Sets a MapColor for Kings that are Premium Users

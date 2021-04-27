@@ -2,47 +2,51 @@ package com.earthpol.epcore;
 
 import com.earthpol.epcore.commands.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public final class Main extends JavaPlugin {
 
     public static Main instance;
     public static Logger log = Bukkit.getLogger();
+    public static String prefix = ChatColor.GOLD + "[" + ChatColor.AQUA + "EPMC" + ChatColor.GOLD + "]: " + ChatColor.RESET + ChatColor.YELLOW;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         instance = this;
-        log.info("======= EPMC CORE =======");
-        log.info("= EarthPol Core Plugin");
-        log.info("= Version: " + this.getDescription().getVersion());
-        log.info("= Authors: " + this.getDescription().getAuthors());
-        log.info("= Website: " + this.getDescription().getWebsite());
-        log.info("= Support: https://discord.gg/DvtZzztAfF");
-        log.info("=========================");
-        log.info("= Registering EventListener");
+        log.info("§e======= §bEPMC CORE §e=======");
+        log.info("§e= §bEarthPol Core Plugin");
+        log.info("§e= §bVersion: §3" + this.getDescription().getVersion());
+        log.info("§e= §bAuthors: §3" + this.getDescription().getAuthors());
+        log.info("§e= §bWebsite: §3" + this.getDescription().getWebsite());
+        log.info("§e= §bSupport: §3https://discord.gg/DvtZzztAfF");
+        log.info("§e=========================");
+        log.info("§e= §bRegistering EventListener");
         getServer().getPluginManager().registerEvents(new EventListener(), this);
-        log.info("= Registered EventListener");
-        log.info("=========================");
-        log.info("= Registering Commands");
-        getCommand("map").setExecutor(new Map());
-        getCommand("help").setExecutor(new Help());
-        getCommand("rules").setExecutor(new Rules());
-        getCommand("store").setExecutor(new Store());
-        getCommand("support").setExecutor(new Support());
-        log.info("= Registered Commands");
-        log.info("=========================");
-        log.info("= Loading Custom Recipes");
+        log.info("§e= §aRegistered EventListener");
+        log.info("§e=========================");
+        log.info("§e= §bRegistering Commands");
+        Objects.requireNonNull(getCommand("map")).setExecutor(new Map());
+        Objects.requireNonNull(getCommand("help")).setExecutor(new Help());
+        Objects.requireNonNull(getCommand("rules")).setExecutor(new Rules());
+        Objects.requireNonNull(getCommand("store")).setExecutor(new Store());
+        Objects.requireNonNull(getCommand("support")).setExecutor(new Support());
+        Objects.requireNonNull(getCommand("mapcolor")).setExecutor(new MapColor());
+        log.info("§e= §aRegistered Commands");
+        log.info("§e=========================");
+        log.info("§e= §bLoading Custom Recipes");
         recipes();
-        log.info("= Loaded Custom Recipes");
-        log.info("=========================");
-        log.info("= Startup completed.");
-        log.info("=========================");
+        log.info("§e= §aLoaded Custom Recipes");
+        log.info("§e=========================");
+        log.info("§e= §aStartup completed.");
+        log.info("§e=========================");
     }
 
     @SuppressWarnings("deprecation")
@@ -346,11 +350,11 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        log.info("======= EPMC CORE =======");
-        log.info("= EarthPol Core Plugin");
-        log.info("= Disabling plugin...");
-        log.info("= Thank you for using EP-Core");
-        log.info("= Support: https://discord.gg/DvtZzztAfF");
-        log.info("=========================");
+        log.info("§e======= §bEPMC CORE §e=======");
+        log.info("§e= §bEarthPol Core Plugin");
+        log.info("§e= §bDisabling plugin...");
+        log.info("§e= §bThank you for using EP-Core");
+        log.info("§e= §bSupport: §3https://discord.gg/DvtZzztAfF");
+        log.info("§e=========================");
     }
 }
