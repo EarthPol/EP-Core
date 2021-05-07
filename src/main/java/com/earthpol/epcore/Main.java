@@ -1,5 +1,6 @@
 package com.earthpol.epcore;
 
+import com.earthpol.epcore.chat.ChatHandler;
 import com.earthpol.epcore.commands.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,6 +18,8 @@ public final class Main extends JavaPlugin {
     public static Logger log = Bukkit.getLogger();
     public static String prefix = ChatColor.GOLD + "[" + ChatColor.AQUA + "EPMC" + ChatColor.GOLD + "]: " + ChatColor.RESET + ChatColor.YELLOW;
 
+    public static ChatHandler chatHandler;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -31,6 +34,10 @@ public final class Main extends JavaPlugin {
         log.info("§e= §bRegistering EventListener");
         getServer().getPluginManager().registerEvents(new EventListener(), this);
         log.info("§e= §aRegistered EventListener");
+        log.info("§e=========================");
+        log.info("§e= §bInitializing ChatHandler");
+        chatHandler = new ChatHandler();
+        log.info("§e= §aInitialized ChatHandler");
         log.info("§e=========================");
         log.info("§e= §bRegistering Commands");
         Objects.requireNonNull(getCommand("map")).setExecutor(new Map());
@@ -168,7 +175,7 @@ public final class Main extends JavaPlugin {
 
         //Custom Soulsand
         final ShapedRecipe soulsand = new ShapedRecipe(new NamespacedKey(this, "custom_soulsand"), new ItemStack(Material.SOUL_SAND, 12));
-        soulsand.shape("RBR","BPB","RBR");
+        soulsand.shape("RBR", "BPB", "RBR");
         soulsand.setIngredient('R', Material.ROTTEN_FLESH);
         soulsand.setIngredient('B', Material.BONE);
         soulsand.setIngredient('P', Material.BLAZE_POWDER);
@@ -186,14 +193,14 @@ public final class Main extends JavaPlugin {
 
         //Custom Sponge
         final ShapedRecipe sponge = new ShapedRecipe(new NamespacedKey(this, "custom_sponge"), new ItemStack(Material.WET_SPONGE, 8));
-        sponge.shape("WWW","WBW","WWW");
+        sponge.shape("WWW", "WBW", "WWW");
         sponge.setIngredient('W', Material.YELLOW_WOOL);
         sponge.setIngredient('B', Material.WATER_BUCKET);
         Bukkit.addRecipe(sponge);
 
         //Custom Blackstone
         final ShapedRecipe blackstone = new ShapedRecipe(new NamespacedKey(this, "custom_blackstone"), new ItemStack(Material.BLACKSTONE, 8));
-        blackstone.shape("SSS","SDS","SSS");
+        blackstone.shape("SSS", "SDS", "SSS");
         blackstone.setIngredient('S', Material.STONE);
         blackstone.setIngredient('D', Material.BLACK_DYE);
         Bukkit.addRecipe(blackstone);
@@ -227,13 +234,13 @@ public final class Main extends JavaPlugin {
         Bukkit.addRecipe(warpedNylium);
 
         final ShapedRecipe gunPowder = new ShapedRecipe(new NamespacedKey(this, "custom_gunpowder"), new ItemStack(Material.GUNPOWDER, 4));
-        gunPowder.shape("GGG","GCG","GGG");
+        gunPowder.shape("GGG", "GCG", "GGG");
         gunPowder.setIngredient('G', Material.GLOWSTONE_DUST);
         gunPowder.setIngredient('C', Material.COAL);
         Bukkit.addRecipe(gunPowder);
 
         final ShapedRecipe endRod = new ShapedRecipe(new NamespacedKey(this, "custom_end_rod"), new ItemStack(Material.END_ROD, 1));
-        endRod.shape(" Q "," T "," Q ");
+        endRod.shape(" Q ", " T ", " Q ");
         endRod.setIngredient('Q', Material.QUARTZ);
         endRod.setIngredient('T', Material.TORCH);
         Bukkit.addRecipe(endRod);
@@ -326,7 +333,7 @@ public final class Main extends JavaPlugin {
         //Custom Blaze Rods
         this.getServer().addRecipe(new FurnaceRecipe(new ItemStack(Material.BLAZE_ROD, 1), Material.IRON_BARS));
 
-        this.getServer().addRecipe(new BlastingRecipe(new NamespacedKey(this,"custom_blazerods"), new ItemStack(Material.BLAZE_ROD, 1), Material.IRON_BARS, 0, 60));
+        this.getServer().addRecipe(new BlastingRecipe(new NamespacedKey(this, "custom_blazerods"), new ItemStack(Material.BLAZE_ROD, 1), Material.IRON_BARS, 0, 60));
 
         //Custom Green Dye
         this.getServer().addRecipe(new SmokingRecipe(new NamespacedKey(this, "custom_green_dye"), new ItemStack(Material.GREEN_DYE, 1), Material.OAK_LEAVES, 0, 60));
