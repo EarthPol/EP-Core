@@ -13,19 +13,23 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 public class EventListener implements Listener {
     boolean mobSpawning;
 
     @EventHandler
-    public void preMobSpawn(PreCreatureSpawnEvent event){
+    public void preMobSpawn(PreCreatureSpawnEvent event) {
         EntityType ent = event.getType();
 
         if (ent == EntityType.RABBIT ||
@@ -34,30 +38,30 @@ public class EventListener implements Listener {
                 ent == EntityType.MULE ||
                 ent == EntityType.BAT ||
                 ent == EntityType.SQUID ||
-                ent == EntityType.COD  ||
+                ent == EntityType.COD ||
                 ent == EntityType.ENDERMITE ||
                 ent == EntityType.TROPICAL_FISH ||
-                ent == EntityType.LLAMA ){
+                ent == EntityType.LLAMA) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void playerLogin(PlayerJoinEvent event){
+    public void playerLogin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         World world = player.getWorld();
         int onlinePlayers = onlinePlayerCount();
 
-        if(onlinePlayers >= 80){
-            if (mobSpawning){
+        if (onlinePlayers >= 80) {
+            if (mobSpawning) {
                 world.setGameRule(GameRule.DO_MOB_SPAWNING, false);
-                Bukkit.broadcastMessage(Main.prefix + "Mob Spawning has been "+ ChatColor.RED + "Disabled");
+                Bukkit.broadcastMessage(Main.prefix + "Mob Spawning has been " + ChatColor.RED + "Disabled");
                 mobSpawning = false;
             }
         }
 
-        if(!player.hasPlayedBefore()){
-            Bukkit.broadcastMessage(Main.prefix + ChatColor.BOLD + "Welcome " + ChatColor.LIGHT_PURPLE + ChatColor.BOLD + player.getName() +  ChatColor.YELLOW + ChatColor.BOLD  + " to" + ChatColor.GREEN + ChatColor.BOLD + " EarthPol!");
+        if (!player.hasPlayedBefore()) {
+            Bukkit.broadcastMessage(Main.prefix + ChatColor.BOLD + "Welcome " + ChatColor.LIGHT_PURPLE + ChatColor.BOLD + player.getName() + ChatColor.YELLOW + ChatColor.BOLD + " to" + ChatColor.GREEN + ChatColor.BOLD + " EarthPol!");
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.5f, 1.0f);
 
             TextComponent guide = new TextComponent("§3Get started by using our §e[§bGuide§e]");
@@ -85,15 +89,15 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void playerLogout(PlayerQuitEvent event){
+    public void playerLogout(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         World world = player.getWorld();
         int onlinePlayers = onlinePlayerCount();
 
-        if (onlinePlayers <= 80){
-            if (!mobSpawning){
+        if (onlinePlayers <= 80) {
+            if (!mobSpawning) {
                 world.setGameRule(GameRule.DO_MOB_SPAWNING, true);
-                Bukkit.broadcastMessage(Main.prefix + "Mob Spawning has been "+ ChatColor.GREEN + "Enabled");
+                Bukkit.broadcastMessage(Main.prefix + "Mob Spawning has been " + ChatColor.GREEN + "Enabled");
                 mobSpawning = true;
             }
         }
@@ -102,8 +106,8 @@ public class EventListener implements Listener {
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent e) throws TownyException {
         if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
-            Player wasHit = (Player)e.getEntity();
-            Player whoHit = (Player)e.getDamager();
+            Player wasHit = (Player) e.getEntity();
+            Player whoHit = (Player) e.getDamager();
             String whoHitName = whoHit.getName();
             String wasHitName = wasHit.getName();
             Resident attacker = TownyUniverse.getInstance().getDataSource().getResident(whoHitName);
@@ -144,7 +148,23 @@ public class EventListener implements Listener {
         }
     }
 
-    public int onlinePlayerCount(){
+    @EventHandler
+    public void onDamage(EntityDamageEvent event) {
+        if (!(event.getEntity() instanceof Player))
+            return;
+
+        if (event.getCause() != DamageCause.VOID)
+            return;
+
+        Player player = (Player) event.getEntity();
+
+        if (player.getWorld().getEnvironment() == Environment.THE_END)
+            return;
+
+        player.teleport(player.getWorld().getHighestBlockAt(player.getLocation()).getLocation().add(0.0, 1.0, 0.0), TeleportCause.UNKNOWN);
+    }
+
+    public int onlinePlayerCount() {
         return Main.instance.getServer().getOnlinePlayers().size();
     }
 }
