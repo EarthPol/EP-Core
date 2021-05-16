@@ -161,6 +161,7 @@ public class EventListener implements Listener {
         if (player.getWorld().getEnvironment() == Environment.THE_END)
             return;
 
+        event.setCancelled(true);
         player.teleport(player.getWorld().getHighestBlockAt(player.getLocation()).getLocation().add(0.0, 1.0, 0.0), TeleportCause.UNKNOWN);
     }
 
