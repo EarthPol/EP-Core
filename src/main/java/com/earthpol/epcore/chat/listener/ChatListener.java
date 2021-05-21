@@ -9,7 +9,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncChatHookEvent event) {
-        if (!event.getChannel().getName().equalsIgnoreCase("general"))
+        if (!event.getChannel().getName().equalsIgnoreCase("general") || !event.getChannel().getName().equalsIgnoreCase("trade"))
             return;
 
         for (char c : event.getMessage().toCharArray()) {

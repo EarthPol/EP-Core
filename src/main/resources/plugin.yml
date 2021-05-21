@@ -2,7 +2,7 @@ name: EPCore
 version: ${project.version}
 main: com.earthpol.epcore.Main
 api-version: 1.16
-authors: [ 0xBit ]
+authors: [ 0xBit, Ludwig_H ]
 description: EarthPol Core, responsible for all custom core functionalities on the EarthPol Server.
 website: https://earthpol.github.com
 depend: [ Towny ]

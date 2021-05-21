@@ -6,7 +6,7 @@
 
     <groupId>com.earthpol</groupId>
     <artifactId>EPCore</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
 
     <name>EPCore</name>
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>com.github.TownyAdvanced</groupId>
             <artifactId>Towny</artifactId>
-            <version>0.96.7.13</version>
+            <version>0.97.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.TownyAdvanced</groupId>

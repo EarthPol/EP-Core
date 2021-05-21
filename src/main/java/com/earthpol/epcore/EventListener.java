@@ -2,6 +2,7 @@ package com.earthpol.epcore;
 
 import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
 import com.palmergames.bukkit.towny.TownyUniverse;
+import com.palmergames.bukkit.towny.event.damage.TownyPlayerDamagePlayerEvent;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.exceptions.TownyException;
 import com.palmergames.bukkit.towny.object.Resident;
@@ -16,6 +17,7 @@ import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -104,48 +106,34 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageByEntityEvent e) throws TownyException {
-        if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
-            Player wasHit = (Player) e.getEntity();
-            Player whoHit = (Player) e.getDamager();
-            String whoHitName = whoHit.getName();
-            String wasHitName = wasHit.getName();
-            Resident attacker = TownyUniverse.getInstance().getDataSource().getResident(whoHitName);
-            Resident defender = TownyUniverse.getInstance().getDataSource().getResident(wasHitName);
-            boolean attackerHasTown = attacker.hasTown();
-            boolean defenderHasTown = defender.hasTown();
+    public void onPlayerDamage(TownyPlayerDamagePlayerEvent e){
+        Player attacker = e.getAttackingPlayer();
+        Player victim = e.getVictimPlayer();
 
-            if (!attackerHasTown && defenderHasTown) {
-                try {
-                    Town town = WorldCoord.parseWorldCoord(wasHit.getLocation()).getTownBlock().getTown();
-                    TownBlockType plotType = WorldCoord.parseWorldCoord(wasHit.getLocation()).getTownBlock().getType();
-                    if (!town.hasOutlaw(whoHit.getName()) && plotType != TownBlockType.ARENA) {
-                        whoHit.sendMessage(Main.prefix + "You attempted to hit " + wasHit.getName() + ", but you are not in town.");
-                        e.setDamage(0.0D);
-                        e.setCancelled(true);
-                    }
-                } catch (NotRegisteredException error) {
-                    whoHit.sendMessage(Main.prefix + "You attempted to hit " + wasHit.getName() + ", but you are not in a town");
-                    e.setDamage(0.0D);
-                    e.setCancelled(true);
-                }
-            } else if (attackerHasTown && !defenderHasTown) {
-                try {
-                    Town town = WorldCoord.parseWorldCoord(wasHit.getLocation()).getTownBlock().getTown();
-                    TownBlockType plotType = WorldCoord.parseWorldCoord(wasHit.getLocation()).getTownBlock().getType();
-                    if (!town.hasOutlaw(wasHit.getName()) && plotType != TownBlockType.ARENA) {
-                        whoHit.sendMessage(Main.prefix + "You attempted to hit " + wasHit.getName() + ", but they are not an outlaw of your town.");
-                        e.setDamage(0.0D);
-                        e.setCancelled(true);
-                    }
-                } catch (NotRegisteredException error) {
-                    whoHit.sendMessage(Main.prefix + "You attempted to hit " + wasHit.getName() + ", but they are not in town.");
-                    e.setDamage(0.0D);
+        Resident resVictim = e.getVictimResident();
+        Resident resAttacker = e.getAttackingResident();
+
+        if(!resAttacker.hasTown() && resVictim.hasTown()){
+            //Attacker doesn't have town, but Victim does.
+            if(!e.isInWilderness() || e.hasTownBlock()){
+                //Event is not in the wilderness and has a townblock.
+                if(e.getTownBlock().getType() != TownBlockType.ARENA || e.getTown().hasOutlaw(resVictim) || e.getTown().hasOutlaw(resAttacker)){
+                    //Event is not in an arena or the victim/attacker is not an outlaw.
+                    attacker.sendMessage("§eYou attempted to hit " + victim.getName() + " §e, but you are not in a town.");
                     e.setCancelled(true);
                 }
             }
 
+        } else if (resAttacker.hasTown() && !resVictim.hasTown()) {
+                //Victim doesn't have a town, but attacker does.
+            if(!e.isInWilderness() || e.hasTownBlock()){
+                if(e.getTownBlock().getType() != TownBlockType.ARENA || e.getTown().hasOutlaw(resVictim) || e.getTown().hasOutlaw(resAttacker)){
+                    attacker.sendMessage("§eYou attempted to hit " + victim.getName() + " §e, but they are not an outlaw of this town.");
+                    e.setCancelled(true);
+                }
+            }
         }
+
     }
 
     @EventHandler
