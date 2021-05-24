@@ -2,6 +2,7 @@ package com.earthpol.epcore;
 
 import com.earthpol.epcore.chat.ChatHandler;
 import com.earthpol.epcore.commands.*;
+import com.earthpol.epcore.deathmessage.DeathMessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,6 +20,7 @@ public final class Main extends JavaPlugin {
     public static String prefix = ChatColor.GOLD + "[" + ChatColor.AQUA + "EPMC" + ChatColor.GOLD + "]: " + ChatColor.RESET + ChatColor.YELLOW;
 
     public static ChatHandler chatHandler;
+    public static DeathMessageHandler deathMessageHandler;
 
     @Override
     public void onEnable() {
@@ -38,6 +40,10 @@ public final class Main extends JavaPlugin {
         log.info("§e= §bInitializing ChatHandler");
         chatHandler = new ChatHandler();
         log.info("§e= §aInitialized ChatHandler");
+        log.info("§e=========================");
+        log.info("§e= §bInitializing DeathMessageHandler");
+        deathMessageHandler = new DeathMessageHandler();
+        log.info("§e= §bInitialized DeathMessageHandler");
         log.info("§e=========================");
         log.info("§e= §bRegistering Commands");
         Objects.requireNonNull(getCommand("map")).setExecutor(new Map());
