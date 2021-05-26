@@ -1,14 +1,9 @@
 package com.earthpol.epcore;
 
 import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
-import com.palmergames.bukkit.towny.TownyUniverse;
 import com.palmergames.bukkit.towny.event.damage.TownyPlayerDamagePlayerEvent;
-import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
-import com.palmergames.bukkit.towny.exceptions.TownyException;
 import com.palmergames.bukkit.towny.object.Resident;
-import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlockType;
-import com.palmergames.bukkit.towny.object.WorldCoord;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -17,10 +12,8 @@ import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -117,7 +110,7 @@ public class EventListener implements Listener {
             //Attacker doesn't have town, but Victim does.
             if(!e.isInWilderness() || e.hasTownBlock()){
                 //Event is not in the wilderness and has a townblock.
-                if(e.getTownBlock().getType() != TownBlockType.ARENA || e.getTown().hasOutlaw(resVictim) || e.getTown().hasOutlaw(resAttacker)){
+                if(e.getTownBlock().getType() != TownBlockType.ARENA || !e.getTown().hasOutlaw(resVictim) || !e.getTown().hasOutlaw(resAttacker)){
                     //Event is not in an arena or the victim/attacker is not an outlaw.
                     attacker.sendMessage("§eYou attempted to hit " + victim.getName() + " §e, but you are not in a town.");
                     e.setCancelled(true);
@@ -127,7 +120,7 @@ public class EventListener implements Listener {
         } else if (resAttacker.hasTown() && !resVictim.hasTown()) {
                 //Victim doesn't have a town, but attacker does.
             if(!e.isInWilderness() || e.hasTownBlock()){
-                if(e.getTownBlock().getType() != TownBlockType.ARENA || e.getTown().hasOutlaw(resVictim) || e.getTown().hasOutlaw(resAttacker)){
+                if(e.getTownBlock().getType() != TownBlockType.ARENA || !e.getTown().hasOutlaw(resVictim) || !e.getTown().hasOutlaw(resAttacker)){
                     attacker.sendMessage("§eYou attempted to hit " + victim.getName() + " §e, but they are not an outlaw of this town.");
                     e.setCancelled(true);
                 }

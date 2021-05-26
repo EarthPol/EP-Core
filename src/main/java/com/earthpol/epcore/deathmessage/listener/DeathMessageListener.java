@@ -3,10 +3,12 @@ package com.earthpol.epcore.deathmessage.listener;
 import com.earthpol.epcore.Main;
 import com.earthpol.epcore.deathmessage.DeathMessageHandler;
 import com.palmergames.bukkit.towny.TownyAPI;
+import com.palmergames.bukkit.towny.TownyUniverse;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownBlockType;
+import com.palmergames.bukkit.towny.object.WorldCoord;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -23,7 +25,7 @@ public class DeathMessageListener implements Listener {
     private DeathMessageHandler handler = Main.deathMessageHandler;
 
     @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent event) {
+    public void onPlayerDeath(PlayerDeathEvent event) throws NotRegisteredException {
         Player player = event.getEntity();
         Component deathMessage = event.deathMessage();
 
