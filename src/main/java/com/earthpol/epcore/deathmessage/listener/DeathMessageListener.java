@@ -22,7 +22,6 @@ import java.util.Set;
 public class DeathMessageListener implements Listener {
 
     private TownyAPI api = TownyAPI.getInstance();
-    private DeathMessageHandler handler = Main.deathMessageHandler;
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) throws NotRegisteredException {
@@ -65,14 +64,14 @@ public class DeathMessageListener implements Listener {
             });
             // If a player is in the same town and in an arena plot, send a death message.
         } else {
-            if(handler.isOnCooldown(player.getUniqueId())) {
+            if(Main.deathMessageHandler.isOnCooldown(player.getUniqueId())) {
                 recipients.add(player);
                 if(player.getKiller() != null);
                     recipients.add(player.getKiller());
             } else {
                 recipients.addAll(Bukkit.getOnlinePlayers());
 
-                handler.putCooldown(player.getUniqueId());
+                Main.deathMessageHandler.putCooldown(player.getUniqueId());
             }
         }
 
