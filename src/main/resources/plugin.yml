@@ -19,4 +19,6 @@ commands:
   support:
     description: Opens a link to the Support on your web browser.
   mapcolor:
-    description: Sets a MapColor for Kings that are Premium Users
+    description: Sets a MapColor for Kings that are Premium Users.
+  ping:
+    description: Shows player's latency.

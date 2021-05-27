@@ -52,6 +52,7 @@ public final class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("store")).setExecutor(new Store());
         Objects.requireNonNull(getCommand("support")).setExecutor(new Support());
         Objects.requireNonNull(getCommand("mapcolor")).setExecutor(new MapColor());
+        Objects.requireNonNull(getCommand("ping")).setExecutor(new Ping());
         log.info("§e= §aRegistered Commands");
         log.info("§e=========================");
         log.info("§e= §bLoading Custom Recipes");
