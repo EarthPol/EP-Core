@@ -63,6 +63,7 @@ public class DeathMessageListener implements Listener {
                     recipients.add(online);
             });
             // If a player is in the same town and in an arena plot, send a death message.
+            recipients.forEach(recipient -> recipient.sendMessage(deathMessage));
         } else {
             if(Main.deathMessageHandler.isOnCooldown(player.getUniqueId())) {
                 recipients.add(player);
@@ -75,6 +76,5 @@ public class DeathMessageListener implements Listener {
             }
         }
 
-        recipients.forEach(recipient -> recipient.sendMessage(deathMessage));
     }
 }
