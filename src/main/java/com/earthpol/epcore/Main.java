@@ -227,7 +227,7 @@ public final class Main extends JavaPlugin {
         Bukkit.addRecipe(netherrack);
         
         //Endstone
-        final ShapedRecipe endstone = new ShapedRecipe(new NamespacedKey(this, "custom_endstone"), new ItemStack(Material.ENDSTONE, 8));
+        final ShapedRecipe endstone = new ShapedRecipe(new NamespacedKey(this, "custom_endstone"), new ItemStack(Material.END_STONE, 8));
         endstone.shape("CCC", "CDC", "CCC");
         endstone.setIngredient('C', Material.COBBLESTONE);
         endstone.setIngredient('D', Material.WHITE_DYE);
