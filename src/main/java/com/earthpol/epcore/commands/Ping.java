@@ -1,6 +1,7 @@
 package com.earthpol.epcore.commands;
 
 import com.earthpol.epcore.Main;
+import net.kyori.adventure.audience.MessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,20 +32,15 @@ public class Ping implements CommandExecutor {
         int ping = target.getPing();
 
         if(ping <= 80){
-            TextComponent msg = new TextComponent(Main.prefix + "§6" + target.displayName() + "§6's ping: §a" + target.getPing());
-            sender.sendMessage(msg);
+            sender.sendMessage(Main.prefix + "§6" + target.displayName().toString() + "§6's ping: §a" + target.getPing());
         } else if (ping <= 100 && ping >= 81){
-            TextComponent msg = new TextComponent(Main.prefix + "§6" + target.displayName() + "§6's ping: §2" + target.getPing());
-            sender.sendMessage(msg);
+            sender.sendMessage(Main.prefix + "§6" + target.displayName().toString() + "§6's ping: §2" + target.getPing());
         } else if (ping <= 150 && ping >= 101) {
-            TextComponent msg = new TextComponent(Main.prefix + "§6" + target.displayName() + "§6's ping: §e" + target.getPing());
-            sender.sendMessage(msg);
+            sender.sendMessage(Main.prefix + "§6" + target.displayName().toString() + "§6's ping: §e" + target.getPing());
         } else if (ping <= 200 && ping >= 151) {
-            TextComponent msg = new TextComponent(Main.prefix + "§6" + target.displayName() + "§6's ping: &c" + target.getPing());
-            sender.sendMessage(msg);
+            sender.sendMessage(Main.prefix + "§6" + target.displayName().toString() + "§6's ping: &c" + target.getPing());
         } else if (ping >= 201) {
-            TextComponent msg = new TextComponent(Main.prefix + "§6" + target.displayName() + "§6's ping: &4" + target.getPing());
-            sender.sendMessage(msg);
+            sender.sendMessage(Main.prefix + "§6" + target.displayName().toString() + "§6's ping: &4" + target.getPing());
         }
 
         return false;
