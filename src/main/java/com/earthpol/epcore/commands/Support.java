@@ -20,7 +20,7 @@ public class Support implements CommandExecutor {
 
             TextComponent msg = new TextComponent("§b[Click here to get a link to the support Discord.]!");
             msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aOpens link to the support Discord Server").create()));
-            msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/AreK6JG"));
+            msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://earthpol.com/discord"));
             player.sendMessage("§e==========[SUPPORT]==========");
             player.sendMessage(msg);
             player.sendMessage("§e============================");
